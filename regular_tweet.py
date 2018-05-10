@@ -19,7 +19,7 @@ def connect_and_tweet(sentence):
 
     api.update_status(sentence)
 
-def moko_takotaki():
+def moko_takoyaki():
 
     takotako = Takoyaki(0) # tweet_typeを定期ツイに指定。
     sentence = takotako.nyan()
