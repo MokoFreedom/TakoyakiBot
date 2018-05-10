@@ -14,7 +14,7 @@ api = tweepy.API(auth)
 
 
 def tweet():
-    takotako = Takoyaki()
+    takotako = Takoyaki(0) # tweet_typeを定期ツイに指定。
     sentence = takotako.nyan()
     print(sentence)
     api.update_status(sentence)
