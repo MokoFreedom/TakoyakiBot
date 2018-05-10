@@ -41,7 +41,7 @@ class Takoyaki:
                            "もっこもこ", "みゃー", "がおー", "たこたこたこたこ", "ゴリー"]
 
 
-    def infomation_load(self):
+    def information_load(self):
 
         with open("./Data/toppings.csv", "r") as f:
             data = csv.reader(f)
@@ -120,7 +120,7 @@ class Takoyaki:
 
     def nyan(self):
 
-        self.infomation_load()
+        self.information_load()
 
         self.choose_order()
 
