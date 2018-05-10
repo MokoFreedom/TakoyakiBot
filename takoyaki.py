@@ -11,8 +11,9 @@ class Takoyaki:
         self.ingredients = []
         self.reasons = ["お金が足りませんでした。", "ダイエット中なのでたこ焼きを控えることにしました。",
                         "買い忘れてしまいました。", "寿司に浮気してしまいました。"]
+        # たこ焼きを買う個数
         self.takoyaki_set = [0, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 49, 53, 57, 59]
-
+        # 時刻ごとのメッセージ
         self.time_data = {4: ["早朝", "早く寝ましょう。"],
                           8: ["モーニング", "おはようございます。"],
                           12: ["ランチ", "眠くならない程度に食べましょう。"],
@@ -34,8 +35,11 @@ class Takoyaki:
 
     def choose_order(self):
 
-        takoyaki_num = random.randrange(20)
+        # たこ焼きを買う個数
+        takoyaki_num = random.sample(self.takoyaki_set, 1)
+        # 具の種類数。1~3個
         ingredients_num = random.randrange(3) + 1
+        
         choose_ingredients = random.sample(self.ingredients, ingredients_num)
         choose_topping = random.sample(self.toppings, 1)
 
@@ -47,10 +51,14 @@ class Takoyaki:
 
         takoyaki_num, ingredients_num, choose_ingredients, choose_topping = self.choose_order()
 
+        # たこ焼きを買わなかった
         if takoyaki_num == 0:
             return random.sample(self.reasons, 1)
 
+        # 値段とカロリーの計算
+        # 15円と30キロカロリーはたこ焼きのタネの分
         price, calories = 15, 30
+
         for i in range(ingredients_num):
             price += int(choose_ingredients[i][1])
             calories += int(choose_ingredients[i][2])
@@ -61,6 +69,7 @@ class Takoyaki:
         price += int(choose_topping[0][1])
         calories += int(choose_topping[0][2])
 
+        # ツイートの作成
         now_time = datetime.now().hour
 
         if now_time in self.time_data:
@@ -80,7 +89,7 @@ class Takoyaki:
 
         res += "味  : " + choose_topping[0][0] + "\n\n"
         res += str(price) + "円でした。\n"
-        res += "合計" + str(calories) + "カロリーです\n\n"
+        res += "合計" + str(calories) + "キロカロリーです\n\n"
 
         if now_time in self.time_data:
             res += self.time_data[now_time][1]
