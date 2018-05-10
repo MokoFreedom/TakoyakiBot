@@ -1,11 +1,11 @@
 from apscheduler.scheculers.blocking import BlockingScheduler
 import regular_tweet
 
-twische = BlockingScheduler()
+sched = BlockingScheduler()
 
-@twische.scheculed_job("interval", hours=4)
+@sched.scheduled_job("interval", minutes=5)
 def timed_job():
     tweet.moko_takoyaki()
 
 if __name__ == "__main__":
-    twische.start()
+    sched.start()
