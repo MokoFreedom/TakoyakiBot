@@ -1,6 +1,7 @@
 # coding: utf-8
 import csv
 import random
+import os
 from datetime import datetime
 
 class Takoyaki:
@@ -23,12 +24,12 @@ class Takoyaki:
 
     def infomation_load(self):
 
-        with open("toppings.csv", "r") as f:
+        with open("./Data/toppings.csv", "r") as f:
             data = csv.reader(f)
             for line in data:
                 self.toppings.append(line)
 
-        with open("ingredients.csv", "r") as f:
+        with open("./Data/ingredients.csv", "r") as f:
             data = csv.reader(f)
             for line in data:
                 self.ingredients.append(line)
@@ -36,12 +37,12 @@ class Takoyaki:
     def choose_order(self):
 
         # たこ焼きを買う個数
-        takoyaki_num = random.sample(self.takoyaki_set, 1)
+        takoyaki_num = random.choice(self.takoyaki_set)
         # 具の種類数。1~3個
         ingredients_num = random.randrange(3) + 1
         
         choose_ingredients = random.sample(self.ingredients, ingredients_num)
-        choose_topping = random.sample(self.toppings, 1)
+        choose_topping = random.choice(self.toppings)
 
         return takoyaki_num, ingredients_num, choose_ingredients, choose_topping
 
@@ -63,11 +64,11 @@ class Takoyaki:
             price += int(choose_ingredients[i][1])
             calories += int(choose_ingredients[i][2])
 
+        price += int(choose_topping[1])
+        calories += int(choose_topping[2])
+
         price *= takoyaki_num
         calories *= takoyaki_num
-
-        price += int(choose_topping[0][1])
-        calories += int(choose_topping[0][2])
 
         # ツイートの作成
         now_time = datetime.now().hour
@@ -87,7 +88,7 @@ class Takoyaki:
             else:
                 res += " "
 
-        res += "味  : " + choose_topping[0][0] + "\n\n"
+        res += "味  : " + choose_topping[0] + "\n\n"
         res += str(price) + "円でした。\n"
         res += "合計" + str(calories) + "キロカロリーです\n\n"
 

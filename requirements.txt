@@ -1,0 +1,4 @@
+tweepy==3.6.0
+dotenv==0.0.5
+bottle==0.12.13
+
