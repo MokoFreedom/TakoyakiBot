@@ -86,7 +86,7 @@ class Takoyaki:
 
         # ツイートの作成
         if self.tweet_type == 0:
-            now_time = datetime.now().hour
+            now_time =int((datetime.utcnow().hour + 9) % 24)
             res = self.time_data[now_time][0] + "のたこ焼きです。\n\n"
         elif self.tweet_type == 1:
             res = "テスト\n\n"
