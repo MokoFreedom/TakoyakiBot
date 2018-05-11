@@ -93,19 +93,19 @@ class Takoyaki:
         else:
             res = "ご注文ありがとうございますたこ。"
 
-        res += str(self.takoyaki_num) + "個注文しました。\n\n"
-        res += "具材: "
+        res += str(self.takoyaki_num) + "個のご注文ですね。\n\n"
+        res += "具材は"
 
         for i in range(self.ingredients_num):
             res += self.choose_ingredients[i][0]
             if i == self.ingredients_num - 1:
-                res += "\n"
+                res += "で、"
             else:
-                res += " "
+                res += "と"
 
-        res += "味  : " + self.choose_topping[0] + "\n\n"
-        res += str(self.price) + "円でした。\n"
-        res += "合計" + str(self.calories) + "キロカロリーです\n\n"
+        res += "味付けは" + self.choose_topping[0] + "です。\n\n"
+        res += str(self.price) + "円になります。\n"
+        res += "合計" + str(self.calories) + "キロカロリーです。\n\n"
 
         if self.tweet_type == 0:
             res += self.time_data[now_time][1]
