@@ -53,7 +53,7 @@ class Takoyaki:
         with open("./Data/time_message.csv", "r") as f:
             data = csv.reader(f)
             for line in data:
-                line_time = line[0]
+                line_time = int(line[0])
                 line.pop(0)
                 self.time_message[line_time] = line
 
@@ -117,11 +117,11 @@ class Takoyaki:
         res += "合計" + str(self.calories) + "キロカロリーです。\n\n"
 
         if self.tweet_type == 0:
-            res += self.time_message[now_time].choice()
+            res += random.choice(self.time_message[now_time])
         elif self.tweet_type == 1:
             res += "テスト成功"
         else:
-            res += rancom.choice(self.reply_data) + "\n"
+            res += random.choice(self.reply_data) + "\n"
             res += "またのお越しをお待ちしておりますたこ。"
 
         return res 
