@@ -62,9 +62,6 @@ class Takoyaki:
             for line in data:
                 self.reply_data.extend(line)
 
-        print(self.time_message)
-        print(self.reply_data)
-
 
     def choose_order(self):
 
