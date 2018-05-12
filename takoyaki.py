@@ -1,4 +1,5 @@
 # coding: utf-8
+
 import csv
 import random
 import os
@@ -28,17 +29,13 @@ class Takoyaki:
         self.takoyaki_set = [0, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 49, 53, 57, 59]
 
         # 時刻ごとのメッセージ
-        self.time_data = {4: ["早朝", "早く寝ましょう。"],
-                          8: ["モーニング", "おはようございます。"],
-                          12: ["ランチ", "眠くならない程度に食べましょう。"],
-                          16: ["遅めのおやつ", "おやつだおやつだー"],
-                          20: ["ディナー", "1日お疲れ様でした。"],
-                          0: ["深夜", "たこ焼きは美味しいので深夜に食べても大丈夫です。"]}
+        self.time_name = {4: "早朝", 8: "モーニング", 12: "ランチ", 16: "遅めのおやつ", 
+                          20: "ディナー", 0: "深夜"}
+        
+        self.time_message = {}
 
         # リプのメッセージ
-        self.reply_data = ["もちもち", "もこもこ", "もふもふ", "すくすく", "なふなふ", "にゃーにゃー",
-                           "たこたこ", "にゅるる", "にゃふっ", "もっちもっち", "もっちぃぃぃ", "はいプロ",
-                           "もっこもこ", "みゃー", "がおー", "たこたこたこたこ", "ゴリー"]
+        self.reply_data = []
 
 
     def information_load(self):
@@ -52,6 +49,21 @@ class Takoyaki:
             data = csv.reader(f)
             for line in data:
                 self.ingredients.append(line)
+
+        with open("./Data/time_message.csv", "r") as f:
+            data = csv.reader(f)
+            for line in data:
+                line_time = line[0]
+                line.pop(0)
+                self.time_message[line_time] = line
+
+        with open("./Data/reply_data.csv", "r") as f:
+            data = csv.reader(f)
+            for line in data:
+                self.reply_data.extend(line)
+
+        print(self.time_message)
+        print(self.reply_data)
 
 
     def choose_order(self):
@@ -86,8 +98,8 @@ class Takoyaki:
 
         # ツイートの作成
         if self.tweet_type == 0:
-            now_time =int((datetime.utcnow().hour + 9) % 24)
-            res = self.time_data[now_time][0] + "のたこ焼きです。\n\n"
+            now_time = int((datetime.utcnow().hour + 9) % 24)
+            res = self.time_name[now_time] + "のたこ焼きです。\n\n"
         elif self.tweet_type == 1:
             res = "テスト\n\n"
         else:
@@ -108,7 +120,7 @@ class Takoyaki:
         res += "合計" + str(self.calories) + "キロカロリーです。\n\n"
 
         if self.tweet_type == 0:
-            res += self.time_data[now_time][1]
+            res += self.time_message[now_time].choice()
         elif self.tweet_type == 1:
             res += "テスト成功"
         else:
