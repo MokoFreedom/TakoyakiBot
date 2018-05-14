@@ -19,9 +19,9 @@ def connect_and_tweet(sentence):
 
     api.update_status(sentence)
 
-def moko_takoyaki():
+def moko_takoyaki(tweet_type):
 
-    takotako = Takoyaki(0) # tweet_typeを定期ツイに指定。
+    takotako = Takoyaki(tweet_type) # tweet_typeを定期ツイに指定。
     sentence = takotako.nyan()
     print(sentence)
     connect_and_tweet(sentence)

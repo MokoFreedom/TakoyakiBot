@@ -100,7 +100,7 @@ class Takoyaki:
         elif self.tweet_type == 1:
             res = "テスト\n\n"
         else:
-            res = "ご注文ありがとうございますたこ。"
+            res = "ご注文ありがとうございますたこ。\n\n"
 
         res += str(self.takoyaki_num) + "個のご注文ですね。\n\n"
         res += "具材は"
