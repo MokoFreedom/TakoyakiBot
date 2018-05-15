@@ -12,5 +12,5 @@ def timed_job():
 
 if __name__ == "__main__":
 
-    my_stream.takoyaki_streaming()
     sched.start()
+    my_stream.takoyaki_streaming()
