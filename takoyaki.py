@@ -13,13 +13,18 @@ class Takoyaki:
         # tweet_type = 0: 通常の定期ツイ, 1: テスト, 2: リプ
         self.tweet_type = tweet_type
 
-        self.toppings = []
-        self.ingredients = []
+        self.toppings = {}
+        self.ingredients = {}
 
         self.takoyaki_num = self.ingredients_num = 0
         self.choose_ingredients = self.choose_topping = []
 
         self.price = self.calories = 0
+
+        # 味の種類の割合
+        self.taste_rate = {"Plane": 1, "Sweet": 1}
+        self.taste = []
+        self.taste_message = {"Sweet": "甘味たこ焼きです。"}
 
         # 買えなかった理由
         self.reasons = ["お金が足りませんでした。", "ダイエット中なのでたこ焼きを控えることにしました。",
@@ -32,7 +37,7 @@ class Takoyaki:
         self.time_name = {4: "早朝", 8: "モーニング", 12: "ランチ", 16: "遅めのおやつ", 
                           20: "ディナー", 0: "深夜"}
         
-        self.time_message = {}
+        self.time_messages = {}
 
         # リプのメッセージ
         self.reply_data = []
@@ -40,22 +45,36 @@ class Takoyaki:
 
     def information_load(self):
 
-        with open("./Data/toppings.csv", "r") as f:
+        with open("./Data/plane_toppings.csv", "r") as f:
             data = csv.reader(f)
+            self.toppings["Plane"] = []
             for line in data:
-                self.toppings.append(line)
+                self.toppings["Plane"].append(line)
 
-        with open("./Data/ingredients.csv", "r") as f:
+        with open("./Data/plane_ingredients.csv", "r") as f:
             data = csv.reader(f)
+            self.ingredients["Plane"] = []
             for line in data:
-                self.ingredients.append(line)
+                self.ingredients["Plane"].append(line)
 
-        with open("./Data/time_message.csv", "r") as f:
+        with open("./Data/sweet_toppings.csv", "r") as f:
+            data = csv.reader(f)
+            self.toppings["Sweet"] = []
+            for line in data:
+                self.toppings["Sweet"].append(line)
+
+        with open("./Data/sweet_ingredients.csv", "r") as f:
+            data = csv.reader(f)
+            self.ingredients["Sweet"] = []
+            for line in data:
+                self.ingredients["Sweet"].append(line)
+
+        with open("./Data/time_messages.csv", "r") as f:
             data = csv.reader(f)
             for line in data:
                 line_time = int(line[0])
                 line.pop(0)
-                self.time_message[line_time] = line
+                self.time_messages[line_time] = line
 
         with open("./Data/reply_data.csv", "r") as f:
             data = csv.reader(f)
@@ -63,15 +82,29 @@ class Takoyaki:
                 self.reply_data.extend(line)
 
 
+    def set_taste(self):
+
+        for taste_name, taste_num in self.taste_rate.items():
+            tmp = [taste_name for i in range(taste_num)]
+            self.taste.extend(tmp)
+
+        print(self.taste)
+
+
     def choose_order(self):
+
+        self.set_taste()
 
         # たこ焼きを買う個数
         self.takoyaki_num = random.choice(self.takoyaki_set)
         # 具の種類数。1~3個
         self.ingredients_num = random.randrange(3) + 1
+        # 味の種類
+        self.choose_taste = random.choice(self.taste)
 
-        self.choose_ingredients = random.sample(self.ingredients, self.ingredients_num)
-        self.choose_topping = random.choice(self.toppings)
+        print(self.choose_taste)
+        self.choose_ingredients = random.sample(self.ingredients[self.choose_taste], self.ingredients_num)
+        self.choose_topping = random.choice(self.toppings[self.choose_taste])
 
 
     def calculate(self):
@@ -102,7 +135,11 @@ class Takoyaki:
         else:
             res = "ご注文ありがとうございますたこ。\n\n"
 
-        res += str(self.takoyaki_num) + "個のご注文ですね。\n\n"
+        if self.choose_taste in self.taste_message.keys():
+            res += self.taste_message[self.choose_taste] + "\n\n"
+
+        res += str(self.takoyaki_num) + "個のご注文ですね。\n\n" 
+
         res += "具材は"
 
         for i in range(self.ingredients_num):
@@ -117,7 +154,7 @@ class Takoyaki:
         res += "合計" + str(self.calories) + "キロカロリーです。\n\n"
 
         if self.tweet_type == 0:
-            res += random.choice(self.time_message[now_time])
+            res += random.choice(self.time_messages[now_time])
         elif self.tweet_type == 1:
             res += "テスト成功"
         else:
