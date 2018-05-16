@@ -22,7 +22,7 @@ class Takoyaki:
         self.price = self.calories = 0
 
         # 味の種類の割合
-        self.taste_rate = {"Plane": 1, "Sweet": 1}
+        self.taste_rate = {"Plane": 5, "Sweet": 1}
         self.taste = []
         self.taste_message = {"Sweet": "甘味たこ焼きです。"}
 
