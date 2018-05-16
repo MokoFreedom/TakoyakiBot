@@ -24,6 +24,11 @@ def get_oauth():
 
 class TakoyakiListener(tweepy.StreamListener):
 
+    def __init__(self, api):
+        super().__init__(api)
+        self.me = self.api.me()
+    
+    
     def on_status(self, status):
 
         if "たこ焼きガチャ" in status.text:
@@ -37,6 +42,15 @@ class TakoyakiListener(tweepy.StreamListener):
                 api.update_status(res, status.id)
         
         return True
+
+    
+    def on_event(self, event):
+        # 自動フォロー
+        if event.event == "follow":
+            if self.me.id != event.source["id"]:
+                source_user = event.source
+                event._api.create_friendship(source_user["id"])
+                print("followed by {} {}".format(source_user["name"], source_user["screen_name"]))
 
 
     def on_error(self, status_code):
@@ -57,5 +71,5 @@ def takoyaki_streaming():
     global api
     api = tweepy.API(auth)
 
-    stream = tweepy.Stream(auth, TakoyakiListener(), secure=True)
+    stream = tweepy.Stream(auth, TakoyakiListener(api), secure=True)
     stream.userstream(async=True)
