@@ -6,9 +6,9 @@ import my_stream
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job("interval", minutes=1,  start_date="2018-05-15 15:26:00")     
+@sched.scheduled_job("interval", hours=4,  start_date="2018-05-16 11:00:00")     
 def timed_job():
-    regular_tweet.moko_takoyaki(1)
+    regular_tweet.moko_takoyaki(0)
 
 if __name__ == "__main__":
 

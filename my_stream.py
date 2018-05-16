@@ -58,4 +58,4 @@ def takoyaki_streaming():
     api = tweepy.API(auth)
 
     stream = tweepy.Stream(auth, TakoyakiListener(), secure=True)
-    stream.userstream()
+    stream.userstream(async=True)
