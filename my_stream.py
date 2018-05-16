@@ -31,7 +31,7 @@ class TakoyakiListener(tweepy.StreamListener):
     
     def on_status(self, status):
 
-        if "たこ焼きガチャ" in status.text:
+        if "たこ焼きガチャ" in status.text or "たこやきガチャ" in status.text:
             if (not status.retweeted) and ("RT @" not in status.text):
                 res = "@" + str(status.author.screen_name)  + "\n"
                 takotako = Takoyaki(2)
