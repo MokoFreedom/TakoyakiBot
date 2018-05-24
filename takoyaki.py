@@ -27,8 +27,7 @@ class Takoyaki:
         self.taste_message = {"Sweet": "甘味たこ焼きです。"}
 
         # 買えなかった理由
-        self.reasons = ["お金が足りませんでした。", "ダイエット中なのでたこ焼きを控えることにしました。",
-                        "買い忘れてしまいました。", "寿司に浮気してしまいました。"]
+        self.reasons = []
 
         # たこ焼きを買う個数
         self.takoyaki_set = [0, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 49, 53, 57, 59]
@@ -80,6 +79,11 @@ class Takoyaki:
             data = csv.reader(f)
             for line in data:
                 self.reply_data.extend(line)
+
+        with open("./Data/reasons.csv", "r") as f:
+            data = csv.reader(f)
+            for line in data:
+                self.reasons.extend(line)
 
 
     def set_taste(self):
