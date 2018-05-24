@@ -1,32 +1,46 @@
 # coding: utf-8
 
 import tweepy
+import regular_tweet
 from get_oauth import get_oauth
 from takoyaki import Takoyaki
 
 
-def local():
+class TakoyakiTest:
+
+    def local(self):
     
-    takotako = Takoyaki(1) # tweet_typeをテストに設定。
-    nya = takotako.nyan()
-    print(nya)
-    print(len(nya))
+        takotako = Takoyaki(1) # tweet_typeをテストに設定。
+        nya = takotako.nyan()
+        print(nya)
+        print(len(nya))
 
 
-def not_local():
+    def not_local(self):
 
-    takotako = Takoyaki(1)
-    nya = takotako.nyan()
+        regular_tweet.takoyaki_tweet(1)
 
-    auth = get_oauth()
-    api = tweepy.API(auth)
 
-    print(nya)
-    api.update_status(nya)
+class OdaibakoTest:
+
+    def local(self):
+        
+        pass
+
+
+    def not_local(self):
+
+        regular_tweet.odaibako_tweet()
 
 
 if __name__ == "__main__":
 
-    #local()
-    not_local()
+    # テスト内容記述
+    tako = TakoyakiTest()
+    odai = OdaibakoTest()
 
+    #tako.local()
+    #tako.not_local()
+
+    #odai.local()
+    odai.not_local()
