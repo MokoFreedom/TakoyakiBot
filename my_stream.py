@@ -1,26 +1,11 @@
 # coding: utf-8
 
 import tweepy
-import settings
+from get_oauth import get_oauth
 from takoyaki import Takoyaki
 
 
 api = None
-
-
-def get_oauth():
-    
-    CONSUMER_KEY = settings.CONSUMER_KEY
-    CONSUMER_SECRET = settings.CONSUMER_SECRET
-
-    ACCESS_TOKEN = settings.ACCESS_TOKEN
-    ACCESS_TOKEN_SECRET = settings.ACCESS_TOKEN_SECRET
-
-    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-
-    return auth
-
 
 class TakoyakiListener(tweepy.StreamListener):
 
@@ -55,12 +40,14 @@ class TakoyakiListener(tweepy.StreamListener):
 
     def on_error(self, status_code):
         
+        api.update_status("Omg...An error occured...Sorry...")
         print("Omg...Got an error...: " + str(status_code))
         return True
 
 
     def on_timeout(self):
 
+        api.update_status("Timeout...nyan...Sorry...")
         print("Timeout...nyan...")
         return True
 

@@ -1,23 +1,17 @@
 # coding: utf-8
 
 import tweepy
-import settings
+from get_oauth import get_oauth
 from takoyaki import Takoyaki
 
 
 def connect_and_tweet(sentence):
 
-    CONSUMER_KEY = settings.CONSUMER_KEY
-    CONSUMER_SECRET = settings.CONSUMER_SECRET
-
-    ACCESS_TOKEN = settings.ACCESS_TOKEN
-    ACCESS_TOKEN_SECRET = settings.ACCESS_TOKEN_SECRET
-
-    auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-    auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+    auth = get_oauth()
     api = tweepy.API(auth)
 
     api.update_status(sentence)
+
 
 def moko_takoyaki(tweet_type):
 
