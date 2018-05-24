@@ -8,9 +8,9 @@ import my_stream
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job("interval", hours=4,  start_date="2018-05-23 11:00:00")     
+@sched.scheduled_job("cron", hours="3,7,11,15,19,23")     
 def timed_takoyaki_tweet():
-    regular_tweet.takoyaki_tweet(0)
+    regular_tweet.takoyaki_tweet(1)
 
 
 @sched.scheduled_job("cron", hour="0,12")
