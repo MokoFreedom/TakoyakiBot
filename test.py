@@ -40,7 +40,7 @@ if __name__ == "__main__":
     odai = OdaibakoTest()
 
     #tako.local()
-    #tako.not_local()
+    tako.not_local()
 
     #odai.local()
-    odai.not_local()
+    #odai.not_local()

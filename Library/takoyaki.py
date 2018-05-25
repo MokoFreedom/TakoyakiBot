@@ -44,6 +44,10 @@ class Takoyaki:
 
     def information_load(self):
 
+        current_path = os.getcwd()
+        next_path = os.path.join(current_path, "Library")
+        os.chdir(next_path)
+
         with open("./Data/plane_toppings.csv", "r") as f:
             data = csv.reader(f)
             self.toppings["Plane"] = []
@@ -85,6 +89,7 @@ class Takoyaki:
             for line in data:
                 self.reasons.extend(line)
 
+        os.chdir(current_path)
 
     def set_taste(self):
 
