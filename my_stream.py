@@ -7,6 +7,7 @@ from takoyaki import Takoyaki
 
 api = None
 
+
 class TakoyakiListener(tweepy.StreamListener):
 
     def __init__(self, api):
@@ -18,13 +19,23 @@ class TakoyakiListener(tweepy.StreamListener):
 
         if "たこ焼きガチャ" in status.text or "たこやきガチャ" in status.text:
             if (not status.retweeted) and ("RT @" not in status.text):
-                res = "@" + str(status.author.screen_name)  + "\n"
+                tweet_text = "@" + str(status.author.screen_name)  + "\n"
                 takotako = Takoyaki(2)
-                res += takotako.nyan()
+                tweet_text += takotako.nyan()
 
-                print(res)
+                if len(tweet_text) > 140:
+                    tweet_text = tweet_text[:133]
+                    tweet_text += "文字数((ry"
 
-                api.update_status(res, status.id)
+                print(tweet_text.split("\n")[0]) # @userID のところだけ表示
+                print("{}文字です。".format(len(tweet_text)))
+
+                sent_tweet_status = api.update_status(tweet_text, status.id)
+
+                dm_text = "https://twitter.com/{}/status/{}".format(str(sent_tweet_status.author.screen_name),\
+                                                                    sent_tweet_status.id_str)
+                
+                api.send_direct_message(screen_name="moko_takoyaki", text=dm_text) # たこ焼きガチャのurlを自分にDMで送信
         
         return True
 

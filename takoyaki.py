@@ -142,20 +142,20 @@ class Takoyaki:
         if self.choose_taste in self.taste_message.keys():
             res += self.taste_message[self.choose_taste] + "\n\n"
 
-        res += str(self.takoyaki_num) + "個のご注文ですね。\n\n" 
+        res += "{}個のご注文ですね。\n\n".format(str(self.takoyaki_num)) 
 
         res += "具材は"
 
         for i in range(self.ingredients_num):
             res += self.choose_ingredients[i][0]
             if i == self.ingredients_num - 1:
-                res += "で、"
+                res += "で、" # 最後の1個
             else:
-                res += "と"
+                res += "と" # まだ続きがある
 
-        res += "味付けは" + self.choose_topping[0] + "です。\n\n"
-        res += str(self.price) + "円になります。\n"
-        res += "合計" + str(self.calories) + "キロカロリーです。\n\n"
+        res += "味付けは{}です。\n\n".format(self.choose_topping[0])
+        res += "{}円になります。\n".format(str(self.price))
+        res += "合計{}キロカロリーです。\n\n".format(str(self.calories))
 
         if self.tweet_type == 0:
             res += random.choice(self.time_messages[now_time])
@@ -166,6 +166,8 @@ class Takoyaki:
             res += "またのお越しをお待ちしておりますたこ。"
 
         return res 
+
+
 
 
     def nyan(self):
@@ -180,6 +182,6 @@ class Takoyaki:
 
         self.calculate()
 
-        tweet = self.make_tweet()
+        tweet_text = self.make_tweet()
 
-        return tweet
+        return tweet_text
