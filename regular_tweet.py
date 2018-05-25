@@ -1,8 +1,8 @@
 # coding: utf-8
 
 import tweepy
-from get_oauth import get_oauth
-from takoyaki import Takoyaki
+from Library.get_oauth import get_oauth
+from Library.takoyaki import Takoyaki
 
 
 def connect_and_tweet(sentence):

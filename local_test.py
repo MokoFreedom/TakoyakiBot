@@ -2,7 +2,6 @@
 
 import tweepy
 import regular_tweet
-from Library.get_oauth import get_oauth
 from Library.takoyaki import Takoyaki
 
 
