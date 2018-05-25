@@ -2,7 +2,7 @@
 
 from apscheduler.schedulers.blocking import BlockingScheduler
 import regular_tweet
-import my_stream
+import streaming
 
 
 sched = BlockingScheduler()
@@ -20,5 +20,5 @@ def timed_odaibako_tweet() :
 
 if __name__ == "__main__":
 
-    my_stream.takoyaki_streaming()
+    streaming.takoyaki_streaming()
     sched.start()
