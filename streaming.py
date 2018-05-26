@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import tweepy
+from Library.character_count import check_text_length
 from Library.get_oauth import get_oauth
 from Library.takoyaki import Takoyaki
 
@@ -23,9 +24,7 @@ class TakoyakiListener(tweepy.StreamListener):
                 takotako = Takoyaki(2)
                 tweet_text += takotako.nyan()
 
-                if len(tweet_text) > 140:
-                    tweet_text = tweet_text[:133]
-                    tweet_text += "文字数((ry"
+                tweet_text = check_text_length(tweet_text)
 
                 print(tweet_text.split("\n")[0]) # @userID のところだけ表示
                 print("{}文字です。".format(len(tweet_text)))

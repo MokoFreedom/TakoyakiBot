@@ -188,5 +188,5 @@ class Takoyaki:
         self.calculate()
 
         tweet_text = self.make_tweet()
-
+        
         return tweet_text

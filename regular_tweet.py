@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import tweepy
+from Library.character_count import check_text_length
 from Library.get_oauth import get_oauth
 from Library.takoyaki import Takoyaki
 
@@ -18,7 +19,7 @@ def takoyaki_tweet(tweet_type):
     takotako = Takoyaki(tweet_type) # tweet_typeを定期ツイに指定。
     sentence = takotako.nyan()
 
-    print(sentence)
+    sentence = check_text_length(sentence)
     connect_and_tweet(sentence)
 
 
