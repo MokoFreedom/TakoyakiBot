@@ -27,7 +27,6 @@ class TakoyakiListener(tweepy.StreamListener):
                 tweet_text = check_text_length(tweet_text)
 
                 print(tweet_text.split("\n")[0]) # @userID のところだけ表示
-                print("{}文字です。".format(len(tweet_text)))
 
                 sent_tweet_status = api.update_status(tweet_text, status.id)
 
