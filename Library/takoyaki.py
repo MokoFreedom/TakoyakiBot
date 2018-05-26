@@ -79,15 +79,11 @@ class Takoyaki:
                 line.pop(0)
                 self.time_messages[line_time] = line
 
-        with open("./Data/reply_data.csv", "r") as f:
-            data = csv.reader(f)
-            for line in data:
-                self.reply_data.extend(line)
+        with open("./Data/reply_data.txt", "r") as f:
+            self.reply_data = [line.replace("\n", "") for line in f.readlines()]
 
-        with open("./Data/reasons.csv", "r") as f:
-            data = csv.reader(f)
-            for line in data:
-                self.reasons.extend(line)
+        with open("./Data/reasons.txt", "r") as f:
+            self.reasons = [line.replace("\n", "") for line in f.readlines()]
 
         os.chdir(current_path)
 
