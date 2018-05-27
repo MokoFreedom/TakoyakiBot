@@ -87,6 +87,7 @@ class Takoyaki:
 
         os.chdir(current_path)
 
+
     def set_taste(self):
 
         for taste_name, taste_num in self.taste_rate.items():

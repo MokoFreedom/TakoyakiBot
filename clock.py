@@ -11,7 +11,7 @@ sched = BlockingScheduler()
 
 @sched.scheduled_job("cron", hour="3,7,11,15,19,23")     
 def timed_takoyaki_tweet():
-    regular_tweet.takoyaki_tweet(1)
+    regular_tweet.takoyaki_tweet(0)
 
 
 @sched.scheduled_job("cron", hour="0,12")
