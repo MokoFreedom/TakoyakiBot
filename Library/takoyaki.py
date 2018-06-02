@@ -15,12 +15,12 @@ class Takoyaki:
 
         # それぞれ、具と味付けのリストをたこ焼きの種類(Plane, Sweet)ごとに持つ。
         # [名前,値段,カロリー] という配列の配列。
-        self.toppings = {}
+        self.taste = {}
         self.ingredients = {}
 
         # 選んだたこ焼きの数,具の数,具,味付け
         self.takoyaki_num = self.ingredients_num = 0
-        self.choose_ingredients = self.choose_topping = []
+        self.choose_ingredients = self.choose_taste = []
         self.choose_takoyaki_type = ""
 
         # たこ焼きの合計価格,合計カロリー
@@ -58,11 +58,11 @@ class Takoyaki:
         next_path = os.path.join(current_path, "Library")
         os.chdir(next_path)
 
-        with open("./Data/plane_toppings.csv", "r") as f:
+        with open("./Data/plane_taste.csv", "r") as f:
             data = csv.reader(f)
-            self.toppings["Plane"] = []
+            self.taste["Plane"] = []
             for line in data:
-                self.toppings["Plane"].append(line)
+                self.taste["Plane"].append(line)
 
         with open("./Data/plane_ingredients.csv", "r") as f:
             data = csv.reader(f)
@@ -70,11 +70,11 @@ class Takoyaki:
             for line in data:
                 self.ingredients["Plane"].append(line)
 
-        with open("./Data/sweet_toppings.csv", "r") as f:
+        with open("./Data/sweet_taste.csv", "r") as f:
             data = csv.reader(f)
-            self.toppings["Sweet"] = []
+            self.taste["Sweet"] = []
             for line in data:
-                self.toppings["Sweet"].append(line)
+                self.taste["Sweet"].append(line)
 
         with open("./Data/sweet_ingredients.csv", "r") as f:
             data = csv.reader(f)
@@ -124,7 +124,7 @@ class Takoyaki:
 
         print(self.choose_takoyaki_type)
         self.choose_ingredients = random.sample(self.ingredients[self.choose_takoyaki_type], self.ingredients_num)
-        self.choose_topping = random.choice(self.toppings[self.choose_takoyaki_type])
+        self.choose_taste = random.choice(self.taste[self.choose_takoyaki_type])
 
 
     def calculate(self):
@@ -137,8 +137,8 @@ class Takoyaki:
             self.price += int(self.choose_ingredients[i][1])
             self.calories += int(self.choose_ingredients[i][2])
 
-        self.price += int(self.choose_topping[1])
-        self.calories += int(self.choose_topping[2])
+        self.price += int(self.choose_taste[1])
+        self.calories += int(self.choose_taste[2])
 
         self.price *= self.takoyaki_num
         self.calories *= self.takoyaki_num
@@ -169,7 +169,7 @@ class Takoyaki:
             else:
                 res += "と" # まだ続きがある
 
-        res += "味付けは{}です。\n\n".format(self.choose_topping[0])
+        res += "味付けは{}です。\n\n".format(self.choose_taste[0])
         res += "{}円になります。\n".format(str(self.price))
         res += "合計{}キロカロリーです。\n\n".format(str(self.calories))
 
