@@ -3,7 +3,6 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 import regular_tweet
 import streaming
-from Library.get_oauth import get_oauth
 
 
 sched = BlockingScheduler()
