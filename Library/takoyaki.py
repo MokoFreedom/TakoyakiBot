@@ -21,16 +21,17 @@ class Takoyaki:
         # 選んだたこ焼きの数,具の数,具,味付け
         self.takoyaki_num = self.ingredients_num = 0
         self.choose_ingredients = self.choose_topping = []
+        self.choose_takoyaki_type = ""
 
         # たこ焼きの合計価格,合計カロリー
         self.price = self.calories = 0
 
         # たこ焼きの種類の割合
-        self.taste_rate = {"Plane": 5, "Sweet": 1}
-        # taste_rateの割合に応じた配列を生成(ランダムに種類を選ぶため)
-        self.taste = []
+        self.takoyaki_type_rate = {"Plane": 5, "Sweet": 1}
+        # takoyaki_type_rateの割合に応じた配列を生成(ランダムに種類を選ぶため)
+        self.takoyaki_type_list = []
         # 種類に応じたメッセージ
-        self.taste_message = {"Sweet": "甘味たこ焼きです。"}
+        self.takoyaki_type_message = {"Sweet": "甘味たこ焼きです。"}
 
         # 買えなかった理由
         self.reasons = []
@@ -51,6 +52,8 @@ class Takoyaki:
 
     def information_load(self):
 
+        # カレントディレクトリを移動
+        # TakoyakiBot -> TakoyakiBot/Library
         current_path = os.getcwd()
         next_path = os.path.join(current_path, "Library")
         os.chdir(next_path)
@@ -92,32 +95,36 @@ class Takoyaki:
         with open("./Data/reasons.txt", "r") as f:
             self.reasons = [line.replace("\n", "") for line in f.readlines()]
 
+        # カレントディレクトリを戻す
         os.chdir(current_path)
 
 
-    def set_taste(self):
+    def set_takoyaki_type(self):
 
-        for taste_name, taste_num in self.taste_rate.items():
-            tmp = [taste_name for i in range(taste_num)]
-            self.taste.extend(tmp)
-
-        print(self.taste)
+        # self.takoyaki_type_rate = {"Plane": 3, "Sweet": 2}
+        # だったら
+        # self.takoyaki_type = ["Plane", "Plane", "Plane", "Sweet", "Sweet"]
+        # という配列を生成
+        for takoyaki_type_name, takoyaki_type_num in self.takoyaki_type_rate.items():
+            tmp = [takoyaki_type_name for i in range(takoyaki_type_num)]
+            self.takoyaki_type_list.extend(tmp)
 
 
     def choose_order(self):
 
-        self.set_taste()
+
+        self.set_takoyaki_type()
 
         # たこ焼きを買う個数
         self.takoyaki_num = random.choice(self.takoyaki_set)
         # 具の種類数。1~3個
         self.ingredients_num = random.randrange(3) + 1
         # 味の種類
-        self.choose_taste = random.choice(self.taste)
+        self.choose_takoyaki_type = random.choice(self.takoyaki_type_list)
 
-        print(self.choose_taste)
-        self.choose_ingredients = random.sample(self.ingredients[self.choose_taste], self.ingredients_num)
-        self.choose_topping = random.choice(self.toppings[self.choose_taste])
+        print(self.choose_takoyaki_type)
+        self.choose_ingredients = random.sample(self.ingredients[self.choose_takoyaki_type], self.ingredients_num)
+        self.choose_topping = random.choice(self.toppings[self.choose_takoyaki_type])
 
 
     def calculate(self):
@@ -148,8 +155,8 @@ class Takoyaki:
         else:
             res = "ご注文ありがとうございますたこ。\n\n"
 
-        if self.choose_taste in self.taste_message.keys():
-            res += self.taste_message[self.choose_taste] + "\n\n"
+        if self.choose_takoyaki_type in self.takoyaki_type_message.keys():
+            res += self.takoyaki_type_message[self.choose_takoyaki_type] + "\n\n"
 
         res += "{}個のご注文ですね。\n\n".format(str(self.takoyaki_num)) 
 

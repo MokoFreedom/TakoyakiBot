@@ -9,7 +9,7 @@ class TakoyakiTest:
 
     def local(self):
     
-        takotako = Takoyaki(2) # tweet_typeをテストに設定。
+        takotako = Takoyaki(1) # tweet_typeをテストに設定。
         nya = takotako.nyan()
         print(nya)
         print(len(nya))
