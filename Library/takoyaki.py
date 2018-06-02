@@ -13,17 +13,23 @@ class Takoyaki:
         # tweet_type = 0: 通常の定期ツイ, 1: テスト, 2: リプ
         self.tweet_type = tweet_type
 
+        # それぞれ、具と味付けのリストをたこ焼きの種類(Plane, Sweet)ごとに持つ。
+        # [名前,値段,カロリー] という配列の配列。
         self.toppings = {}
         self.ingredients = {}
 
+        # 選んだたこ焼きの数,具の数,具,味付け
         self.takoyaki_num = self.ingredients_num = 0
         self.choose_ingredients = self.choose_topping = []
 
+        # たこ焼きの合計価格,合計カロリー
         self.price = self.calories = 0
 
-        # 味の種類の割合
+        # たこ焼きの種類の割合
         self.taste_rate = {"Plane": 5, "Sweet": 1}
+        # taste_rateの割合に応じた配列を生成(ランダムに種類を選ぶため)
         self.taste = []
+        # 種類に応じたメッセージ
         self.taste_message = {"Sweet": "甘味たこ焼きです。"}
 
         # 買えなかった理由
@@ -32,10 +38,11 @@ class Takoyaki:
         # たこ焼きを買う個数
         self.takoyaki_set = [0, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 49, 53, 57, 59]
 
-        # 時刻ごとのメッセージ
+        # 時刻ごとの名前(定期ツイ用)
         self.time_name = {4: "早朝", 8: "モーニング", 12: "ランチ", 16: "遅めのおやつ", 
                           20: "ディナー", 0: "深夜"}
         
+        # 時刻ごとのメッセージ(定期ツイ用)
         self.time_messages = {}
 
         # リプのメッセージ
