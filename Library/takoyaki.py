@@ -27,9 +27,7 @@ class Takoyaki:
         self.price = self.calories = 0
 
         # たこ焼きの種類の割合
-        self.takoyaki_type_rate = [("Plane", 5), ("Sweet", 1)]
-        # takoyaki_type_rateの割合に応じた配列を生成(ランダムに種類を選ぶため)
-        self.takoyaki_type_list = []
+        self.takoyaki_type = {"Kind": ["Plane", "Sweet"], "Rate": [5, 1]}
         # 種類に応じたメッセージ
         self.takoyaki_type_message = {"Sweet": "甘味たこ焼きです。"}
 
@@ -87,29 +85,17 @@ class Takoyaki:
         os.chdir(current_path)
 
 
-    def set_takoyaki_type(self):
-
-        # self.takoyaki_type_rate = [("Plane", 3), ("Sweet", 2)]
-        # だったら
-        # self.takoyaki_type_list = ["Plane", "Plane", "Plane", "Sweet", "Sweet"]
-        # という配列を生成
-        self.takoyaki_type_list = [val for val, cnt in self.takoyaki_type_rate for i in range(cnt)]
-
-
     def choose_order(self):
 
-
-        self.set_takoyaki_type()
-
-        # たこ焼きを買う個数
+        # たこ焼きを買う個数を決める。0個なら買えなかったことに。
         self.takoyaki_num = random.choice(self.takoyaki_set)
-        # 具の種類数。1~3個
+        # 具の種類数を決める。1~3個の中から。
         self.ingredients_num = random.randrange(3) + 1
-        # 味の種類
-        self.choose_takoyaki_type = random.choice(self.takoyaki_type_list)
-
-        print(self.choose_takoyaki_type)
+        # たこ焼きの種類を決める。
+        self.choose_takoyaki_type = random.choices(self.takoyaki_type["Kind"], self.takoyaki_type["Rate"], k=1)[0]
+        # さっき決めた種類数に応じて具をランダムに取り出す。
         self.choose_ingredients = random.sample(self.ingredients[self.choose_takoyaki_type], self.ingredients_num)
+        # たこ焼きの味付けを決める。
         self.choose_taste = random.choice(self.taste[self.choose_takoyaki_type])
 
 
