@@ -119,6 +119,8 @@ class Takoyaki:
     def make_tweet(self):
 
         # ツイートの作成
+        
+        # self.tweet_type によって最初のメッセージを変える。
         if self.tweet_type == 0:
             now_time = int((datetime.utcnow().hour + 9) % 24)
             res = self.time_name[now_time] + "のたこ焼きです。\n\n"
@@ -127,6 +129,7 @@ class Takoyaki:
         else:
             res = "ご注文ありがとうございますたこ。\n\n"
 
+        # たこ焼きの種類、具材、味付け、値段、合計カロリーの説明。
         if self.choose_takoyaki_type in self.takoyaki_type_message.keys():
             res += self.takoyaki_type_message[self.choose_takoyaki_type] + "\n\n"
 
@@ -145,6 +148,7 @@ class Takoyaki:
         res += "{}円になります。\n".format(str(self.price))
         res += "合計{}キロカロリーです。\n\n".format(str(self.calories))
 
+        # self.tweet_type によって最後のメッセージを変える。
         if self.tweet_type == 0:
             res += random.choice(self.time_messages[now_time])
         elif self.tweet_type == 1:
