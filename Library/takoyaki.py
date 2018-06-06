@@ -89,7 +89,7 @@ class Takoyaki:
 
     def set_takoyaki_type(self):
 
-        # self.takoyaki_type_rate = {"Plane": 3, "Sweet": 2}
+        # self.takoyaki_type_rate = [("Plane", 3), ("Sweet", 2)]
         # だったら
         # self.takoyaki_type_list = ["Plane", "Plane", "Plane", "Sweet", "Sweet"]
         # という配列を生成
