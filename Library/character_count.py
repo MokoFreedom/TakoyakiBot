@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import unicodedata
+import os
 
 
 def count_characters(text):
@@ -12,6 +13,8 @@ def count_characters(text):
             count += 2
         else:
             count += 1
+    
+    count += text.count(os.linesep)
 
     return count
 
@@ -22,5 +25,5 @@ def check_text_length(text):
 
     if count > 270:
         text = text[:260] + "..文字数((ry"
-    
+
     return text
