@@ -38,8 +38,8 @@ if __name__ == "__main__":
     tako = TakoyakiTest()
     odai = OdaibakoTest()
 
-    tako.local()
-    #tako.not_local()
+    #tako.local()
+    tako.not_local()
 
     #odai.local()
     #odai.not_local()

@@ -1,9 +1,7 @@
 # coding: utf-8
 
 import tweepy
-from Library.character_count import check_text_length
-from Library.get_auth import get_auth
-from Library.takoyaki import Takoyaki
+import Library
 
 
 api = None
@@ -25,12 +23,12 @@ class TakoyakiListener(tweepy.StreamListener):
                 # status.auther.screen_name でツイ主のユーザー名を取得
                 tweet_text = "@" + str(status.author.screen_name)  + "\n"
                 # Takoyakiのtweet_typeをリプに
-                takotako = Takoyaki(2)
+                takotako = Library.takoyaki.Takoyaki(2)
                 tweet_text += takotako.nyan()
 
                 # ツイートがTwitterの文字数制限を超えていないかチェック
                 # 超えていたら縮小
-                tweet_text = check_text_length(tweet_text)
+                tweet_text = Library.character_count.check_text_length(tweet_text)
 
                 # logに残す
                 # 残さなくても大丈夫なのですが、私が残したかったので
@@ -73,7 +71,7 @@ class TakoyakiListener(tweepy.StreamListener):
 
 def takoyaki_streaming():
 
-    auth = get_auth()
+    auth = Library.get_auth.get_auth()
     global api
     api = tweepy.API(auth)
 

@@ -20,7 +20,7 @@ def check_text_length(text):
 
     count = count_characters(text)
 
-    if count > 280:
-        text = text[:268] + "..文字数((ry"
+    if count > 270:
+        text = text[:260] + "..文字数((ry"
     
     return text

@@ -1,9 +1,7 @@
 # coding: utf-8
 
 import tweepy
-from Library.character_count import check_text_length
-from Library.get_auth import get_auth
-from Library.takoyaki import Takoyaki
+import Library
 
 
 def connect_and_tweet(sentence):
@@ -11,7 +9,7 @@ def connect_and_tweet(sentence):
     apiに接続し、sentenceをツイートする
     """
 
-    auth = get_auth()
+    auth = Library.get_auth.get_auth()
     api = tweepy.API(auth)
 
     api.update_status(sentence)
@@ -24,12 +22,12 @@ def takoyaki_tweet(tweet_type):
     """
 
     # たこ焼きのツイートを生成
-    takotako = Takoyaki(tweet_type)
+    takotako = Library.takoyaki.Takoyaki(tweet_type)
     sentence = takotako.nyan()
 
     # ツイートの文字数制限を超えていないかチェック
     # 超えていたら縮小
-    sentence = check_text_length(sentence)
+    sentence = Library.character_count.check_text_length(sentence)
 
     connect_and_tweet(sentence)
 
