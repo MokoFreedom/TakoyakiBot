@@ -27,7 +27,7 @@ class Takoyaki:
         self.price = self.calories = 0
 
         # たこ焼きの種類の割合
-        self.takoyaki_type_rate = {"Plane": 5, "Sweet": 1}
+        self.takoyaki_type_rate = [("Plane", 5), ("Sweet", 1)]
         # takoyaki_type_rateの割合に応じた配列を生成(ランダムに種類を選ぶため)
         self.takoyaki_type_list = []
         # 種類に応じたメッセージ
@@ -91,11 +91,9 @@ class Takoyaki:
 
         # self.takoyaki_type_rate = {"Plane": 3, "Sweet": 2}
         # だったら
-        # self.takoyaki_type = ["Plane", "Plane", "Plane", "Sweet", "Sweet"]
+        # self.takoyaki_type_list = ["Plane", "Plane", "Plane", "Sweet", "Sweet"]
         # という配列を生成
-        for takoyaki_type_name, takoyaki_type_num in self.takoyaki_type_rate.items():
-            tmp = [takoyaki_type_name for i in range(takoyaki_type_num)]
-            self.takoyaki_type_list.extend(tmp)
+        self.takoyaki_type_list = [val for val, cnt in self.takoyaki_type_rate for i in range(cnt)]
 
 
     def choose_order(self):
