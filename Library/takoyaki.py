@@ -105,9 +105,9 @@ class Takoyaki:
         # 15円と30キロカロリーはたこ焼きのタネの分
         self.price, self.calories = 15, 30
 
-        for i in range(self.ingredients_num):
-            self.price += int(self.choose_ingredients[i]["price"])
-            self.calories += int(self.choose_ingredients[i]["calories"])
+        for ingredient in self.choose_ingredients:
+            self.price += int(ingredient["price"])
+            self.calories += int(ingredient["calories"])
 
         self.price += int(self.choose_taste["price"])
         self.calories += int(self.choose_taste["calories"])
