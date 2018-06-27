@@ -34,14 +34,18 @@ class TakoyakiListener(tweepy.StreamListener):
                 # 残さなくても大丈夫なのですが、私が残したかったので
                 print(tweet_text.split("\n")[0]) # @userID のところだけ表示
 
-                # ツイートして、その送ったツイートの情報を受け取る
-                sent_tweet_status = api.update_status(tweet_text, status.id)
+                try:
+                    # ツイートして、その送ったツイートの情報を受け取る
+                    sent_tweet_status = api.update_status(tweet_text, status.id)
+                except:
+                    sent_tweet_status = api.update_status("エラーが発生しました...。", status.id)
 
                 # 今ツイートしたたこ焼きガチャのURLを自分自信(bot)にDMで送る
                 # これも行う必要は全く無いのですが、自分が記録として残しておきたかったので
                 dm_text = "https://twitter.com/{}/status/{}".format(str(sent_tweet_status.author.screen_name),\
-                                                                    sent_tweet_status.id_str)
+                                                                        sent_tweet_status.id_str)
                 api.send_direct_message(screen_name="moko_takoyaki", text=dm_text)
+
 
         return True
 

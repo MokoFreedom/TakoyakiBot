@@ -12,7 +12,10 @@ def connect_and_tweet(sentence):
     auth = Library.get_auth.get_auth()
     api = tweepy.API(auth)
 
-    api.update_status(sentence)
+    try:
+        api.update_status(sentence)
+    except:
+        api.update_status("エラーが発生しました...")
 
 
 def takoyaki_tweet(tweet_type):
