@@ -2,6 +2,9 @@
 
 import tweepy
 import Library
+import time
+
+last = int(time.time()*1000)
 
 
 def id2date(id):
@@ -46,12 +49,7 @@ def tweet(api, status, last):
 
 
 def tl_check():
-    try:
-        with open("last") as f:
-            last = int(f.read())
-    except:
-        last = 0
-
+    global last
     auth = Library.get_auth.get_auth()
     api = tweepy.API(auth)
     ts = api.home_timeline(count=200)
@@ -60,6 +58,4 @@ def tl_check():
             tweet(api, status, last)
         except tweepy.TweepError as e:
             print(e.reason)
-    if len(ts) != 0:
-        with open("last", mode='w') as f:
-            f.write(str(id2date(ts[0].id)))
+    last = id2date(ts[0].id)

@@ -2,4 +2,3 @@ __pycache__/
 .env
 stream.py
 ./Library/__pycache__
-/last
