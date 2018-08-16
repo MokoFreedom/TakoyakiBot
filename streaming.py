@@ -4,12 +4,16 @@ import tweepy
 import Library
 
 
-def tweet(api, status):
+def id2date(id):
+    return (id >> 22)+1288834974657
+
+
+def tweet(api, status, last):
 
     # "たこ焼きガチャ"もしくは"たこやきガチャ"というワードをTLで発見
     if "たこ焼きガチャ" in status.text or "たこやきガチャ" in status.text:
         # RTは除外
-        if (not status.retweeted) and ("RT @" not in status.text):
+        if (not status.retweeted) and ("RT @" not in status.text) and (last < id2date(status.id)):
             # status.auther.screen_name でツイ主のユーザー名を取得
             tweet_text = "@" + str(status.author.screen_name) + "\n"
             # Takoyakiのtweet_typeをリプに
@@ -42,10 +46,20 @@ def tweet(api, status):
 
 
 def tl_check():
+    try:
+        with open("last") as f:
+            last = int(f.read())
+    except:
+        last = 0
+
     auth = Library.get_auth.get_auth()
     api = tweepy.API(auth)
-    for status in api.home_timeline(count=200):
+    ts = api.home_timeline(count=200)
+    for status in ts:
         try:
-            tweet(api, status)
+            tweet(api, status, last)
         except tweepy.TweepError as e:
             print(e.reason)
+    if len(ts) != 0:
+        with open("last", mode='w') as f:
+            f.write(str(id2date(ts[0].id)))
