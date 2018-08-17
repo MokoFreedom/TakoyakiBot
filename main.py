@@ -31,7 +31,6 @@ def timed_odaibako_tweet():
 # 2秒に一回TL取得
 @sched.scheduled_job("interval", seconds=2)
 def tl_tweet():
-    print("TL取得")
     streaming.tl_check(list_id)
 
 

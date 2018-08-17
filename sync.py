@@ -58,10 +58,13 @@ def sync_friends(api: tweepy.API, friends: typing.Set[int], followers: typing.Se
 
 
 def sync(api: tweepy.API, list_id: int):
-    members = find_members(api, list_id)
-    friends = find_friends(api)
-    followers = find_followers(api)
-    outgoing = find_outgoing(api)
+    try:
+        members = find_members(api, list_id)
+        friends = find_friends(api)
+        followers = find_followers(api)
+        outgoing = find_outgoing(api)
 
-    sync_list(api, list_id, friends, members)
-    sync_friends(api, friends, followers, outgoing)
+        sync_list(api, list_id, friends, members)
+        sync_friends(api, friends, followers, outgoing)
+    except tweepy.TweepError as e:
+        print(e.reason)
