@@ -4,9 +4,11 @@ import tweepy
 import Library
 import time
 
+# TLをどこまで読んだか
 last = int(time.time()*1000)
 
 
+# ツイートIDからツイートしたunixtimeに変換
 def id2date(id):
     return (id >> 22)+1288834974657
 
@@ -58,4 +60,5 @@ def tl_check():
             tweet(api, status, last)
         except tweepy.TweepError as e:
             print(e.reason)
-    last = id2date(ts[0].id)
+    if len(ts)!=0:
+        last = id2date(ts[0].id)
