@@ -47,7 +47,7 @@ def tweet(api, status, last):
             dm_text = "https://twitter.com/{}/status/{}".format(str(sent_tweet_status.author.screen_name),
                                                                 sent_tweet_status.id_str)
             api.send_direct_message(
-                screen_name="moko_takoyaki", text=dm_text)
+                user_id=api.me().id, text=dm_text)
 
 
 def tl_check():
@@ -60,5 +60,5 @@ def tl_check():
             tweet(api, status, last)
         except tweepy.TweepError as e:
             print(e.reason)
-    if len(ts)!=0:
+    if len(ts) != 0:
         last = id2date(ts[0].id)

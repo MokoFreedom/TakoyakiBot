@@ -10,11 +10,11 @@ def list_members(api: tweepy.API, listID: str)->Set[int]:
 
 
 def followers(api: tweepy.API)->Set[int]:
-    set(list(tweepy.Cursor(api.followers_ids, user_id=api.me.id).items()))
+    set(list(tweepy.Cursor(api.followers_ids, user_id=api.me().id).items()))
 
 
 def friends(api: tweepy.API)->Set[int]:
-    set(list(tweepy.Cursor(api.friends_ids, user_id=api.me.id).items()))
+    set(list(tweepy.Cursor(api.friends_ids, user_id=api.me().id).items()))
 
 
 def outgoing(api: tweepy.API)->Set[int]:
