@@ -30,6 +30,7 @@ def find_list(api: tweepy.API)->int:
     for x in api.lists_all():
         if x.name == list_name:
             return x.id
+    print("リスト作成")
     return create_list(api)
 
 
@@ -43,10 +44,12 @@ def sync_list(api: tweepy.API, list_id: int, friends: typing.Set[int], members: 
 def sync_friends(api: tweepy.API, friends: typing.Set[int], followers: typing.Set[int], outgoing: typing.Set[int]):
     # フォロー
     for id in followers-friends-outgoing:
+        print("フォロー:"+str(id))
         api.create_friendship(user_id=id)
 
     # リム
     for id in friends-followers:
+        print("アンフォロー:"+str(id))
         api.destroy_friendship(user_id=id)
 
 
