@@ -3,7 +3,7 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 import regular_tweet
 import streaming
-
+from sync import sync
 
 # スケジューラー
 sched = BlockingScheduler()
@@ -28,6 +28,13 @@ def timed_odaibako_tweet():
 def tl_tweet():
     print("TL取得")
     streaming.tl_check()
+
+
+# 30分に一回リスト同期
+@sched.scheduled_job("cron", minute="0,30")
+def timed_sync():
+    print("同期")
+    sync()
 
 
 if __name__ == "__main__":
