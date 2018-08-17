@@ -36,9 +36,13 @@ def find_list(api: tweepy.API)->int:
 
 def sync_list(api: tweepy.API, list_id: int, friends: typing.Set[int], members: typing.Set[int]):
     # リストに追加
-    api.add_list_members(list_id=list_id, user_id=list(friends-members))
+    for id in friends-members:
+        print("リスト追加:"+str(id))
+        api.add_list_member(list_id=list_id, user_id=id)
     # リストから削除
-    api.remove_list_members(list_id=list_id, user_id=list(members-friends))
+    for id in members-friends:
+        print("リスト削除:"+str(id))
+        api.remove_list_member(list_id=list_id, user_id=id)
 
 
 def sync_friends(api: tweepy.API, friends: typing.Set[int], followers: typing.Set[int], outgoing: typing.Set[int]):
