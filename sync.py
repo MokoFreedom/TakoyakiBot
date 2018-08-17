@@ -57,11 +57,7 @@ def sync_friends(api: tweepy.API, friends: typing.Set[int], followers: typing.Se
         api.destroy_friendship(user_id=id)
 
 
-def sync():
-    auth = Library.get_auth.get_auth()
-    api = tweepy.API(auth)
-
-    list_id = find_list(api)
+def sync(api: tweepy.API, list_id: int):
     members = find_members(api, list_id)
     friends = find_friends(api)
     followers = find_followers(api)

@@ -3,7 +3,12 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 import regular_tweet
 import streaming
-from sync import sync
+from sync import sync, find_list
+import tweepy
+import Library
+
+api = tweepy.API(Library.get_auth.get_auth())
+list_id = find_list(api)
 
 # スケジューラー
 sched = BlockingScheduler()
@@ -23,18 +28,18 @@ def timed_odaibako_tweet():
     regular_tweet.odaibako_tweet()
 
 
-# 1分に一回TL取得
-@sched.scheduled_job("cron", second="0")
+# 2秒に一回TL取得
+@sched.scheduled_job("interval", seconds=2)
 def tl_tweet():
     print("TL取得")
-    streaming.tl_check()
+    streaming.tl_check(list_id)
 
 
 # 30分に一回リスト同期
 @sched.scheduled_job("cron", minute="0,30")
 def timed_sync():
     print("同期")
-    sync()
+    sync(api, list_id)
 
 
 if __name__ == "__main__":

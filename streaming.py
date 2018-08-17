@@ -50,11 +50,11 @@ def tweet(api, status, last):
                 user_id=api.me().id, text=dm_text)
 
 
-def tl_check():
+def tl_check(list_id: int):
     global last
     auth = Library.get_auth.get_auth()
     api = tweepy.API(auth)
-    ts = api.home_timeline(count=200)
+    ts = api.list_timeline(count=100, list_id=list_id)
     for status in ts:
         try:
             tweet(api, status, last)
