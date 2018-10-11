@@ -116,7 +116,8 @@ class Takoyaki:
         self.calories *= self.takoyaki_num
 
         # 大放出サービス
-        self.price = int(self.price / 4)
+        #self.price = int(self.price / 4)
+        print(self.price)
 
 
     def make_tweet(self):

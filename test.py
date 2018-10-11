@@ -4,7 +4,6 @@ import tweepy
 import regular_tweet
 from Library.takoyaki import Takoyaki
 
-
 class TakoyakiTest:
 
     def local(self):
@@ -38,8 +37,8 @@ if __name__ == "__main__":
     tako = TakoyakiTest()
     odai = OdaibakoTest()
 
-    #tako.local()
-    tako.not_local()
+    tako.local()
+    #tako.not_local()
 
     #odai.local()
     #odai.not_local()
