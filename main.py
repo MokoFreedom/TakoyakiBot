@@ -10,6 +10,8 @@ import Library
 api = tweepy.API(Library.get_auth.get_auth())
 list_id = find_list(api)
 
+api.update_status("起動しましたたこ。")
+
 # スケジューラー
 sched = BlockingScheduler()
 
